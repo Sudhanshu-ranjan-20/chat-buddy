@@ -1,0 +1,10 @@
+{
+  "extends": "@chat-buddy/typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "composite": true
+  },
+  "include": ["src","src/scripts"]
+}
