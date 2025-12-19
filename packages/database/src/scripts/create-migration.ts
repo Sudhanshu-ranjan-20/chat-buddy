@@ -19,6 +19,7 @@ const filename = `${timestamp}_${name}.ts`;
 const filePath = path.join(migrationsDir, filename);
 
 const template = `import { Knex } from "knex";
+import { DB_CONSTANTS } from "@chat-buddy/shared";
 
 export async function up(knex: Knex): Promise<void> {
 }
