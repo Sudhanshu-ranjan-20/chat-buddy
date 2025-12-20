@@ -6,7 +6,7 @@ const migrationsDir = path.resolve(process.argv[3] || process.env.MIGRATIONS_DIR
 
 const migrate = async () => {
     createDb({
-        client: "pg",
+       client: "pg",
         connection:{
             host:process.env.DB_HOST || "localhost",
             port:process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
@@ -16,7 +16,7 @@ const migrate = async () => {
             ssl: process.env.DB_SSL? true : false,
         },
         migrations:{
-            tableName:"tb_nex_migrations",
+            tableName:"tb_knex_migrations",
             directory:migrationsDir
         }
     })

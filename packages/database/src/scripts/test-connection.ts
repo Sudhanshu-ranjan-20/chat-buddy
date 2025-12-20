@@ -1,5 +1,4 @@
 import knex from "knex"
-import test from "node:test";
 
 const testConnection = async () => {
     const db = knex({
@@ -15,8 +14,8 @@ const testConnection = async () => {
     });
 
     try {
-        await db.raw("SELECT 1+1 AS result");
-        console.log("Database connection successful");
+        const testRes = await db.raw("SELECT 1+1 AS result");
+        console.log("Database connection successful",testRes);
     } catch (error) {
         console.error("Database connection failed:", error);
         throw error;

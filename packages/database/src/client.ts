@@ -28,14 +28,15 @@ export const createDb =(config : TDbConfig):Knex|null => {
   return db;
         
     } catch (error) {
+        console.log("ERROR IN CREATING DB CLIENT", error);
         return null
         
     }
   
 }
 export const getDb = ():Knex|null => {
-    if(!db) return db
-    return null;
+    if(!db) return null;
+    return db;
 }
 export const closeDb = async ():Promise<void> => {
     try {
