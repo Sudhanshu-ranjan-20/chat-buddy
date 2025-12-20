@@ -7,7 +7,11 @@ if (!name) {
   process.exit(1);
 }
 
-const migrationsDir = path.resolve(process.argv[3] || process.env.MIGRATIONS_DIR || "../../apps/server/db/migrations");
+const migrationsDir = path.resolve(
+  process.argv[3] ||
+    process.env.MIGRATIONS_DIR ||
+    "../../apps/server/db/migrations"
+);
 
 if (!fs.existsSync(migrationsDir)) {
   fs.mkdirSync(migrationsDir, { recursive: true });
@@ -30,6 +34,3 @@ export async function down(knex: Knex): Promise<void> {
 
 fs.writeFileSync(filePath, template);
 console.log(`Migration file created: ${filePath}`);
-
-
-

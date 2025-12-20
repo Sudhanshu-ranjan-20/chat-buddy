@@ -26,16 +26,16 @@ export const HTTP_STATUS_CODES = {
 } as const;
 
 export const DB_CONSTANTS = {
-    CHAT_BUDDY_SCHEMA: 'chat-buddy',
-    TABLES: {
-        USERS: 'tb_users',
-        SESSIONS: 'tb_sessions',
-        MESSAGES: 'tb_messages',
-    },
+  CHAT_BUDDY_SCHEMA: "chat-buddy",
+  TABLES: {
+    USERS: "tb_users",
+    SESSIONS: "tb_sessions",
+    MESSAGES: "tb_messages",
+  },
 } as const;
 
 export const URLS = {
-BASE_URL: 'SOME_URL',
-WS_URL: 'SOME_WS_URL',
-MESSAGE_QUEUE_URL: 'SOME_MESSAGE_QUEUE_URL',
+  BASE_URL: "SOME_URL",
+  WS_URL: "SOME_WS_URL",
+  MESSAGE_QUEUE_URL: "SOME_MESSAGE_QUEUE_URL",
 } as const;

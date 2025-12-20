@@ -1,3 +1,3 @@
 export * from "./client";
 export * from "./migrate";
-export * from "./types"
+export * from "./types";
