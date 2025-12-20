@@ -8,4 +8,6 @@ export const ENVIRONMENT = {
   DB_PASSWORD: process.env.DB_PASSWORD || "postgres",
   DB_NAME: process.env.DB_NAME || "chat-buddy",
   TOKEN_EXPIRY: process.env.TOKEN_EXPIRY || "1h",
+  CORS_ORIGIN: process.env.CORS_ORIGIN || "http://localhost:5173",
+  CORS_CREDENTIALS: process.env.CORS_CREDENTIALS || true,
 };

@@ -30,8 +30,32 @@ class UserService {
       return user || null;
     } catch (error) {
       console.log(error);
-      return null;
+      throw error;
     }
+  }
+
+  fetchUserByConditions(conditions: any): Promise<IUser | null> {
+    const query = this.DB_INSTANCE(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
+      .select(this.RETURNING_FIELDS)
+      .where(conditions)
+      .first();
+    return query;
+  }
+
+  updateUser({
+    userId,
+    updatePayload,
+  }: {
+    userId: string;
+    updatePayload: Record<string, string>;
+  }): Promise<IUser | null> {
+    const query = this.DB_INSTANCE(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
+      .update(updatePayload)
+      .where({ id: userId })
+      .returning(this.RETURNING_FIELDS)
+      .first();
+
+    return query;
   }
 }
 
