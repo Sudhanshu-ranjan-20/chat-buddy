@@ -24,7 +24,7 @@ class AuthController {
       }
 
       const token = AuthUtils.generateToken(user);
-      res.cookie("token", token, {
+      res.cookie("access_token", token, {
         httpOnly: true,
         secure: ENVIRONMENT.NODE_ENV === "local",
         maxAge: 7 * 24 * 60 * 60 * 1000,

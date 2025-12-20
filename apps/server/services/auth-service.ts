@@ -11,24 +11,21 @@ export interface IAuthRequest extends Request {
 }
 class AuthService {
   async authenticate(req: IAuthRequest, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization;
-    const token =
-      authHeader && authHeader.startsWith("Bearer ")
-        ? authHeader.split(" ")[1]
-        : null;
+    const accessToken = req.cookies?.access_token as string;
 
-    if (!token)
+    if (!accessToken)
       return res.status(HTTP_STATUS_CODES.UNAUTHORIZED).json({
         error: "Unauthorized, Token Required!",
       });
     try {
       let decoded: IDecodedToken | null = null;
-      decoded = AuthUtils.verifyToken(token);
-      if (!decoded)
+      decoded = AuthUtils.verifyToken(accessToken);
+      if (!decoded) {
+        res.clearCookie("access_token");
         return res
           .status(HTTP_STATUS_CODES.UNAUTHORIZED)
           .json({ error: "Unauthorized!! Invalid Token" });
-
+      }
       const user = await UserService.fetchUserByConditions({
         id: decoded.userId,
       });
@@ -44,6 +41,7 @@ class AuthService {
 
       next();
     } catch (error) {
+      res.clearCookie("access_token");
       console.log(error);
       throw error;
     }
