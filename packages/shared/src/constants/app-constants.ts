@@ -31,6 +31,7 @@ export const DB_CONSTANTS = {
     USERS: "tb_users",
     SESSIONS: "tb_sessions",
     MESSAGES: "tb_messages",
+    REFRESH_TOKENS: "tb_refresh_tokens",
   },
 } as const;
 

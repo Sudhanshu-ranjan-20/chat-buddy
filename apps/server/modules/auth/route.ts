@@ -14,4 +14,5 @@ export default express
     celebrate(Validator.signupSchema()),
     Controller.signup.bind(Controller)
   )
-  .post("/logout", Controller.logout.bind(Controller));
+  .post("/logout", Controller.logout.bind(Controller))
+  .post("/refresh", Controller.refreshToken.bind(Controller));

@@ -13,15 +13,33 @@ class AuthUtils {
   comparePassword(password: string, hashedPassword: string): Promise<boolean> {
     return bcrypt.compare(password, hashedPassword);
   }
-  generateToken(user: IUser): string {
-    return jwt.sign(
-      { userId: user.id, email: user.email },
-      ENVIRONMENT.JWT_SECRET,
-      { expiresIn: ENVIRONMENT.TOKEN_EXPIRY as any }
-    );
+  generateAccessToken({
+    userId,
+    email,
+  }: {
+    userId: string;
+    email: string;
+  }): string {
+    return jwt.sign({ userId, email }, ENVIRONMENT.JWT_SECRET, {
+      expiresIn: ENVIRONMENT.TOKEN_EXPIRY as any,
+    });
   }
-  verifyToken(token: string): IDecodedToken {
+  generateRefreshToken({
+    userId,
+    email,
+  }: {
+    userId: string;
+    email: string;
+  }): string {
+    return jwt.sign({ userId, email }, ENVIRONMENT.REFRESH_SECRET, {
+      expiresIn: ENVIRONMENT.REFRESH_TOKEN_EXPIRY as any,
+    });
+  }
+  verifyAccessToken(token: string): IDecodedToken {
     return jwt.verify(token, ENVIRONMENT.JWT_SECRET) as IDecodedToken;
+  }
+  verifyRefreshToken(token: string): IDecodedToken {
+    return jwt.verify(token, ENVIRONMENT.REFRESH_SECRET) as IDecodedToken;
   }
 }
 

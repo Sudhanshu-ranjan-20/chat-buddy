@@ -29,7 +29,6 @@ export default function LoginPage() {
     try {
       const { status, data } = await createUser.mutateAsync(signupPayload);
       const isSuccess = status === 201;
-      console.log("STATUS:::", status);
       if (isSuccess) {
         setUser(data);
         router.push("/dashboard");
@@ -48,13 +47,13 @@ export default function LoginPage() {
     try {
       const { status, data } = await loginUser.mutateAsync(loginPayload);
       const isSuccess = status === 200;
-      console.log("STATUS:::", status);
+
       if (isSuccess) {
         setUser(data);
         router.push("/dashboard");
       }
       window.alert(
-        status === 400 ? "Cant logged in!" : "User Logged in successfully"
+        status === 400 ? "Cant logged in !" : "User Logged in successfully"
       );
     } catch (error) {
       console.error("Error in Login/signup page");
