@@ -18,11 +18,20 @@ const io = new Server(httpServer, {
   },
 });
 
+dotenv.config();
+
+app.use(
+  cors({
+    origin: ENVIRONMENT.CORS_ORIGIN,
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-createDb({
+const dbInstance = createDb({
   client: "pg",
   connection: {
     host: ENVIRONMENT.DB_HOST,
@@ -38,8 +47,14 @@ createDb({
     directory: "../db/seeds",
   },
 });
+if (!dbInstance) {
+  console.error("Failed to intialize database!!");
+  process.exit(1);
+}
+console.log("Database intialized!!");
 
 app.use("/", routes);
+app.use(errors());
 
 io.on("connection", (socket) => {
   console.log("Socket Connection Extablished!!", socket.id);

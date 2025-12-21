@@ -5,7 +5,7 @@ import { UserService } from "../../services";
 import { ENVIRONMENT } from "../../env";
 class AuthController {
   async login(req: Request, res: Response) {
-    res.send("Login route");
+    res.status(HTTP_STATUS_CODES.SUCCESS_OK).json({ message: "Login route" });
   }
   async signup(req: Request, res: Response) {
     try {

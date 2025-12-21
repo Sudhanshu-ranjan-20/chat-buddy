@@ -17,12 +17,12 @@ class UserService {
   ];
   DB_SCHEMA = DB_CONSTANTS.CHAT_BUDDY_SCHEMA;
   TBL_USERS = DB_CONSTANTS.TABLES.USERS;
-  DB_INSTANCE = getDb()!;
+
   async createUser(userData: IUserWithSignupPayload): Promise<IUser | null> {
     try {
-      const [user] = await this.DB_INSTANCE(
-        `${this.DB_SCHEMA}.${this.TBL_USERS}`
-      )
+      const knex = getDb()!;
+
+      const [user] = await knex(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
         .insert(userData)
         .onConflict(["email"])
         .ignore()

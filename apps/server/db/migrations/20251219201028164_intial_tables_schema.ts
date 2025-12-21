@@ -5,7 +5,8 @@ const TB_USERS = DB_CONSTANTS.TABLES.USERS;
 export async function up(knex: Knex): Promise<void> {
   // Creating schema incase schema does not exist
   await knex.schema.createSchemaIfNotExists(SCHEMA);
-  if (!knex.schema.withSchema(SCHEMA).hasTable(TB_USERS)) {
+  const tableExists = await knex.schema.withSchema(SCHEMA).hasTable(TB_USERS);
+  if (!tableExists) {
     await knex.schema
       .withSchema(SCHEMA)
       .createTableIfNotExists(TB_USERS, (tbl) => {

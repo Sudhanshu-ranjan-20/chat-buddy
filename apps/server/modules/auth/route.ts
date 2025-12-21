@@ -4,7 +4,7 @@ import Validator from "./validator";
 import { celebrate } from "celebrate";
 export default express
   .Router()
-  .get(
+  .post(
     "/login",
     celebrate(Validator.loginSchema()),
     Controller.login.bind(Controller)

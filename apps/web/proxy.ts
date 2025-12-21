@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const authCheck = (req: NextRequest) => {
+export const proxy = (req: NextRequest) => {
   const token = req.cookies.get("access_token");
   const { pathname } = req.nextUrl;
 
@@ -15,4 +15,8 @@ export const authCheck = (req: NextRequest) => {
   }
 
   return NextResponse.next();
+};
+
+export const config = {
+  matcher: ["/((?!_next|favicon.ico).*)"],
 };

@@ -1,8 +1,9 @@
 import knex, { Knex } from "knex";
 import { TDbConfig } from "./types";
 let db: Knex | null = null;
-export const createDb = (config: TDbConfig): Knex | null => {
+export const createDb = (config: TDbConfig): Knex => {
   try {
+    if (db) return db;
     db = knex({
       client: config.client || "pg",
       connection: {
@@ -27,7 +28,7 @@ export const createDb = (config: TDbConfig): Knex | null => {
     return db;
   } catch (error) {
     console.log("ERROR IN CREATING DB CLIENT", error);
-    return null;
+    throw new Error(`DATA_BASE init failed ${error}`);
   }
 };
 export const getDb = (): Knex | null => {
