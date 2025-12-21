@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import api from "../../../lib/axios";
+import api from "@lib/axios";
 import {
   IUserWithLoginPayload,
   IUserWithSignupPayload,
@@ -23,5 +23,9 @@ export function useAuthService() {
     },
   });
 
-  return { createUser, loginUser };
+  const logoutUser = useMutation({
+    mutationFn: () => api.post(`${BASE_URL}/logout`),
+  });
+
+  return { createUser, loginUser, logoutUser };
 }

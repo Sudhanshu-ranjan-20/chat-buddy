@@ -6,6 +6,9 @@ export const proxy = (req: NextRequest) => {
 
   // Allowing public routes + next internal assets
   if (pathname === "/login" || pathname.startsWith("/_next")) {
+    if (token) {
+      return NextResponse.redirect(new URL("/dashboard", req?.url));
+    }
     return NextResponse.next();
   }
 

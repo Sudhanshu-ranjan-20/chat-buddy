@@ -5,7 +5,14 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "@store": ["./store/index.ts"],
+      "@store/*": ["./store/*"],
+      "@lib/*": ["./lib/*"],
+      "@services": ["./services/index.ts"],
+      "@services/*": ["./services/*"]
+    }
   },
   "include": [
     "**/*.ts",
@@ -14,7 +21,5 @@
     "next.config.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

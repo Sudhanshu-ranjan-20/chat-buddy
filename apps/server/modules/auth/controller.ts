@@ -5,7 +5,31 @@ import { UserService } from "../../services";
 import { ENVIRONMENT } from "../../env";
 class AuthController {
   async login(req: Request, res: Response) {
-    res.status(HTTP_STATUS_CODES.SUCCESS_OK).json({ message: "Login route" });
+    try {
+      const { email, password } = req.body;
+      const user = await UserService.fetchUserByEmailForAuth(email);
+
+      console.log("USER:::", user);
+      const isPasswordValid = await AuthUtils.comparePassword(
+        password,
+        user?.password || ""
+      );
+
+      if (!user || !isPasswordValid) {
+        return res
+          .status(HTTP_STATUS_CODES.NOT_FOUND)
+          .json({ message: "Invalid Credentials" });
+      }
+
+      const token = AuthUtils.generateToken(user);
+      res.cookie("access_token", token, {
+        httpOnly: true,
+        secure: ENVIRONMENT.NODE_ENV === "local",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        sameSite: "strict",
+      });
+      res.status(HTTP_STATUS_CODES.SUCCESS_OK).json({ message: "Login route" });
+    } catch (error) {}
   }
   async signup(req: Request, res: Response) {
     try {
@@ -40,7 +64,15 @@ class AuthController {
     }
   }
   async logout(req: Request, res: Response) {
-    res.send("Logout route");
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: ENVIRONMENT.NODE_ENV === "local",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: "strict",
+    });
+    res
+      .status(HTTP_STATUS_CODES.SUCCESS_ACCEPTED)
+      .json({ message: "User logged out!!" });
   }
 }
 

@@ -2,6 +2,7 @@ import { getDb } from "@chat-buddy/database";
 import {
   DB_CONSTANTS,
   IUser,
+  IUserWithPassword,
   IUserWithSignupPayload,
 } from "@chat-buddy/shared";
 
@@ -21,7 +22,6 @@ class UserService {
   async createUser(userData: IUserWithSignupPayload): Promise<IUser | null> {
     try {
       const knex = getDb()!;
-
       const [user] = await knex(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
         .insert(userData)
         .onConflict(["email"])
@@ -35,9 +35,19 @@ class UserService {
   }
 
   fetchUserByConditions(conditions: any): Promise<IUser | null> {
-    const query = this.DB_INSTANCE(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
+    const knex = getDb()!;
+    const query = knex(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
       .select(this.RETURNING_FIELDS)
       .where(conditions)
+      .first();
+    return query;
+  }
+
+  fetchUserByEmailForAuth(email: string): Promise<IUserWithPassword | null> {
+    const knex = getDb()!;
+    const query = knex(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
+      .select("id", "email", "name", "password")
+      .where({ email })
       .first();
     return query;
   }
@@ -49,7 +59,8 @@ class UserService {
     userId: string;
     updatePayload: Record<string, string>;
   }): Promise<IUser | null> {
-    const query = this.DB_INSTANCE(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
+    const knex = getDb()!;
+    const query = knex(`${this.DB_SCHEMA}.${this.TBL_USERS}`)
       .update(updatePayload)
       .where({ id: userId })
       .returning(this.RETURNING_FIELDS)
