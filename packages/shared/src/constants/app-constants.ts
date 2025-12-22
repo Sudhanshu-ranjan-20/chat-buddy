@@ -29,9 +29,18 @@ export const DB_CONSTANTS = {
   CHAT_BUDDY_SCHEMA: "chat-buddy",
   TABLES: {
     USERS: "tb_users",
-    SESSIONS: "tb_sessions",
+    GUILDS: "tb_guilds",
+    GUILD_MEMBERS: "tb_guild_members",
+    CHANNELS: "tb_channels",
     MESSAGES: "tb_messages",
     REFRESH_TOKENS: "tb_refresh_tokens",
+  },
+  ENUMS: {
+    CHANNEL_TYPE: ["TEXT", "VOICE"],
+    MESSAGE_TYPE: ["TEXT", "IMAGE", "VIDEO", "AUDIO", "FILE"],
+  },
+  DEFAULTS: {
+    CHANNEL: "TEXT",
   },
 } as const;
 
