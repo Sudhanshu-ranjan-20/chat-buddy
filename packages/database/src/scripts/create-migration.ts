@@ -24,7 +24,6 @@ const filePath = path.join(migrationsDir, filename);
 
 const template = `import { Knex } from 'knex';
 
-// UP
 export async function up(knex: Knex): Promise<void> {
   try {
     await knex.transaction((trx: Knex) => {});
@@ -34,7 +33,6 @@ export async function up(knex: Knex): Promise<void> {
   }
 }
 
-// DOWN
 export async function down(knex: Knex): Promise<void> {
   try {
     await knex.transaction((trx: Knex) => {});
