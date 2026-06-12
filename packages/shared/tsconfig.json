@@ -1,6 +1,7 @@
 {
   "extends": "@chat-buddy/typescript-config/base.json",
   "compilerOptions": {
+    "strict": true,
     "outDir": "dist",
     "rootDir": "src",
     "declaration": true,
