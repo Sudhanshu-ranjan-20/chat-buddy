@@ -3,7 +3,9 @@ import { createDb } from "../client";
 import { runSeeds } from "..";
 
 const seedsDir = path.resolve(
-  process.argv[3] || process.env.MIGRATIONS_DIR || "../../apps/server/db/seeds"
+  process.argv[3] ||
+    process.env.MIGRATIONS_DIR ||
+    "../../apps/api/src/database/seeds",
 );
 
 const main = async () => {

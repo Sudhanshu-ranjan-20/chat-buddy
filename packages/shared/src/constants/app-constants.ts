@@ -26,22 +26,15 @@ export const HTTP_STATUS_CODES = {
 } as const;
 
 export const DB_CONSTANTS = {
-  CHAT_BUDDY_SCHEMA: "chat-buddy",
+  CHAT_BUDDY_SCHEMA: "chat_buddy",
   TABLES: {
     USERS: "tb_users",
-    GUILDS: "tb_guilds",
-    GUILD_MEMBERS: "tb_guild_members",
-    CHANNELS: "tb_channels",
-    MESSAGES: "tb_messages",
     REFRESH_TOKENS: "tb_refresh_tokens",
   },
   ENUMS: {
-    CHANNEL_TYPE: ["TEXT", "VOICE"],
-    MESSAGE_TYPE: ["TEXT", "IMAGE", "VIDEO", "AUDIO", "FILE"],
+    USERS: { STATUS: ["ACTIVE", "DISABLED", "DELETED"] },
   },
-  DEFAULTS: {
-    CHANNEL: "TEXT",
-  },
+  DEFAULTS: {},
 } as const;
 
 export const URLS = {

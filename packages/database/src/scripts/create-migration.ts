@@ -10,7 +10,7 @@ if (!name) {
 const migrationsDir = path.resolve(
   process.argv[3] ||
     process.env.MIGRATIONS_DIR ||
-    "../../apps/server/db/migrations"
+    "../../apps/api/src/database/migrations",
 );
 
 if (!fs.existsSync(migrationsDir)) {
@@ -22,13 +22,24 @@ const filename = `${timestamp}_${name}.ts`;
 
 const filePath = path.join(migrationsDir, filename);
 
-const template = `import { Knex } from "knex";
-import { DB_CONSTANTS } from "@chat-buddy/shared";
+const template = `import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
+  try {
+    await knex.transaction((trx: Knex) => {});
+  } catch (err: any) {
+    console.error('Error in transaction', err);
+    throw err;
+  }
 }
 
 export async function down(knex: Knex): Promise<void> {
+  try {
+    await knex.transaction((trx: Knex) => {});
+  } catch (err: any) {
+    console.error('Error in transaction', err);
+    throw err;
+  }
 }
 `;
 

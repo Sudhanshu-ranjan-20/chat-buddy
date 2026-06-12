@@ -5,7 +5,7 @@ import { migrateToLatest } from "..";
 const migrationsDir = path.resolve(
   process.argv[3] ||
     process.env.MIGRATIONS_DIR ||
-    "../../apps/server/db/migrations"
+    "../../apps/api/src/database/migrations",
 );
 
 const migrate = async () => {
@@ -26,7 +26,7 @@ const migrate = async () => {
   });
 
   const res = await migrateToLatest();
-  console.log(`Migrated to batch ${res.batch}`);
+  console.log(`Migrated to ${JSON.stringify(res)}`);
   process.exit(0);
 };
 migrate().catch((err) => {
